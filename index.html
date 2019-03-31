@@ -39,23 +39,22 @@
 
         <script>
 
-            // function test(num){
-            //     console.log(`Received value ${num}`);
-            // }
-
             $('.submit').click(function(event){
                 event.preventDefault();
 
                 const number = $('.num').val();
                 const color1 = $('.color1').val();
                 const color2 = $('.color2').val();
+                const totalwidth = 1200;
+                const size = Math.floor(totalwidth/number);
+                const sizeStr = size.toString() + 'px';
 
                 const square1 = React.createElement('div', {
                         style:
                         {
                             backgroundColor: color1,
-                            width: '100px',
-                            height: '100px',
+                            width: sizeStr,
+                            height: sizeStr,
                             display: 'inline-block',
                             verticalAlign: 'top'
                         }
@@ -64,42 +63,18 @@
                         style:
                         {
                             backgroundColor: color2,
-                            width: '100px',
-                            height: '100px',
+                            width: sizeStr,
+                            height: sizeStr,
                             display: 'inline-block',
                             verticalAlign: 'top'
                         }
                     });
-
-                // const redSquare = React.createElement('div', {
-                //         style:
-                //         {
-                //             backgroundColor: 'red',
-                //             width: '100px',
-                //             height: '100px',
-                //             display: 'inline-block',
-                //             verticalAlign: 'top'
-                //         }
-                //     });
-                //
-                // const blackSquare = React.createElement('div', {
-                //         style:
-                //         {
-                //             backgroundColor: 'black',
-                //             width: '100px',
-                //             height: '100px',
-                //             display: 'inline-block',
-                //             verticalAlign: 'top'
-                //         }
-                //     });
 
                 const oddRow = (props) => {
                     var arr = []
                     for (var i = 0; i < Math.floor(number/2); i++){
                         arr.push(square1);
                         arr.push(square2);
-                        // arr.push(blackSquare);
-                        // arr.push(redSquare);
                     }
                     if (number % 2 != 0){
                         arr.push(square1);
@@ -112,8 +87,6 @@
                     for (let i = 0; i < Math.floor(number/2); i++){
                         arr.push(square2);
                         arr.push(square1);
-                        // arr.push(redSquare);
-                        // arr.push(blackSquare);
                     }
                     if (number % 2 != 0){
                         arr.push(square2);
@@ -140,11 +113,8 @@
                 const createBoard = React.createElement('div', null, board());
 
                 ReactDOM.render(createBoard, document.getElementById('app'));
-
+                
             });
-
-
-
 
         </script>
 
