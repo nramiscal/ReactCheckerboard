@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
+        <style media="screen">
+            .submit {
+                width: 100px;
+                height: 40px;
+                background-color: blue;
+                border-radius: 10px;
+                color: white;
+                font-size: 120%;
+            }
+
+            .color1, .color2, .num {
+                width: 100px;
+                height: 20px;
+                font-size: 100%;
+            }
+        </style>
         <meta charset="utf-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Checkerboard</title>
@@ -13,8 +29,10 @@
 
         <h1>Checkerboard</h1>
         <form class="" action="/search" method="post">
-            <label for="num">Number of rows/columns:</label>
-            <input class="num" type="text" name="num" value="">
+            <input class="color1" type="text" name="color1" placeholder="Color 1"><br>
+            <input class="color2" type="text" name="color2" placeholder="Color2"><br>
+            <input class="num" type="text" name="num" placeholder="Number"><br><br>
+            <input class="submit" type="submit" name="" value="Create!">
         </form><br>
 
         <div id="app"></div>
@@ -25,18 +43,27 @@
             //     console.log(`Received value ${num}`);
             // }
 
-
-            $('.num').keyup(function(event){
+            $('.submit').click(function(event){
                 event.preventDefault();
-                // test($('.num').val());
+
                 const number = $('.num').val();
-                // ReactDOM.render(number, document.getElementById('app'));
-                // console.log('done')
+                const color1 = $('.color1').val();
+                const color2 = $('.color2').val();
 
-                const redSquare = React.createElement('div', {
+                const square1 = React.createElement('div', {
                         style:
                         {
-                            backgroundColor: 'red',
+                            backgroundColor: color1,
+                            width: '100px',
+                            height: '100px',
+                            display: 'inline-block',
+                            verticalAlign: 'top'
+                        }
+                    });
+                const square2 = React.createElement('div', {
+                        style:
+                        {
+                            backgroundColor: color2,
                             width: '100px',
                             height: '100px',
                             display: 'inline-block',
@@ -44,25 +71,38 @@
                         }
                     });
 
-                const blackSquare = React.createElement('div', {
-                        style:
-                        {
-                            backgroundColor: 'black',
-                            width: '100px',
-                            height: '100px',
-                            display: 'inline-block',
-                            verticalAlign: 'top'
-                        }
-                    });
+                // const redSquare = React.createElement('div', {
+                //         style:
+                //         {
+                //             backgroundColor: 'red',
+                //             width: '100px',
+                //             height: '100px',
+                //             display: 'inline-block',
+                //             verticalAlign: 'top'
+                //         }
+                //     });
+                //
+                // const blackSquare = React.createElement('div', {
+                //         style:
+                //         {
+                //             backgroundColor: 'black',
+                //             width: '100px',
+                //             height: '100px',
+                //             display: 'inline-block',
+                //             verticalAlign: 'top'
+                //         }
+                //     });
 
                 const oddRow = (props) => {
                     var arr = []
                     for (var i = 0; i < Math.floor(number/2); i++){
-                        arr.push(blackSquare);
-                        arr.push(redSquare);
+                        arr.push(square1);
+                        arr.push(square2);
+                        // arr.push(blackSquare);
+                        // arr.push(redSquare);
                     }
                     if (number % 2 != 0){
-                        arr.push(blackSquare);
+                        arr.push(square1);
                     }
                     return arr;
                 }
@@ -70,11 +110,13 @@
                 const evenRow = (props) => {
                     let arr = []
                     for (let i = 0; i < Math.floor(number/2); i++){
-                        arr.push(redSquare);
-                        arr.push(blackSquare);
+                        arr.push(square2);
+                        arr.push(square1);
+                        // arr.push(redSquare);
+                        // arr.push(blackSquare);
                     }
                     if (number % 2 != 0){
-                        arr.push(redSquare);
+                        arr.push(square2);
                     }
                     return arr;
                 }
@@ -98,7 +140,6 @@
                 const createBoard = React.createElement('div', null, board());
 
                 ReactDOM.render(createBoard, document.getElementById('app'));
-
 
             });
 
