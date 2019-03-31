@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>Checkerboard</title>
+        <script src="node_modules/react/umd/react.development.js"></script>
+        <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+
+
+    </head>
+    <body>
+
+        <h1>Checkerboard</h1>
+        <form class="" action="/search" method="post">
+            <label for="num">Number of rows/columns:</label>
+            <input class="num" type="text" name="num" value="">
+        </form><br>
+
+        <div id="app"></div>
+
+        <script>
+
+            // function test(num){
+            //     console.log(`Received value ${num}`);
+            // }
+
+
+            $('.num').keyup(function(event){
+                event.preventDefault();
+                // test($('.num').val());
+                const number = $('.num').val();
+                // ReactDOM.render(number, document.getElementById('app'));
+                // console.log('done')
+
+                const redSquare = React.createElement('div', {
+                        style:
+                        {
+                            backgroundColor: 'red',
+                            width: '100px',
+                            height: '100px',
+                            display: 'inline-block',
+                            verticalAlign: 'top'
+                        }
+                    });
+
+                const blackSquare = React.createElement('div', {
+                        style:
+                        {
+                            backgroundColor: 'black',
+                            width: '100px',
+                            height: '100px',
+                            display: 'inline-block',
+                            verticalAlign: 'top'
+                        }
+                    });
+
+                const oddRow = (props) => {
+                    var arr = []
+                    for (var i = 0; i < Math.floor(number/2); i++){
+                        arr.push(blackSquare);
+                        arr.push(redSquare);
+                    }
+                    if (number % 2 != 0){
+                        arr.push(blackSquare);
+                    }
+                    return arr;
+                }
+
+                const evenRow = (props) => {
+                    let arr = []
+                    for (let i = 0; i < Math.floor(number/2); i++){
+                        arr.push(redSquare);
+                        arr.push(blackSquare);
+                    }
+                    if (number % 2 != 0){
+                        arr.push(redSquare);
+                    }
+                    return arr;
+                }
+
+                const evenRowDiv = React.createElement('div', null, evenRow());
+                const oddRowDiv = React.createElement('div', null, oddRow());
+
+
+                const board = (props) => {
+                    let arr = []
+                    for (let i = 0; i < Math.floor(number/2); i++){
+                        arr.push(oddRowDiv);
+                        arr.push(evenRowDiv);
+                    }
+                    if (number % 2 != 0){
+                        arr.push(oddRow());
+                    }
+                    return arr;
+                }
+
+                const createBoard = React.createElement('div', null, board());
+
+                ReactDOM.render(createBoard, document.getElementById('app'));
+
+
+            });
+
+
+
+
+        </script>
+
+    </body>
+</html>
